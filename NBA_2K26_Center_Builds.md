@@ -189,7 +189,81 @@
 
 ---
 
+---
+
+## Build 4: Custom Target Build (James' Spec)
+
+**Playstyle:** Board-crashing stretch-5 with elite outlet passing. Jokic-meets-Gobert hybrid.
+
+| | Setting |
+|---|---|
+| Height | 6'11" |
+| Weight | ~240 lbs |
+| Wingspan | Default (preserve shooting) |
+| Specialization | **Rebounding** |
+
+### Target Attributes (Base → After Cap Breakers)
+
+| Category | Attribute | Base | Cap Broken | Target |
+|----------|-----------|------|-----------|--------|
+| Finishing | Standing Dunk | 90 | — | **90** |
+| Shooting | 3PT | 80–81 | +2–3 | **83** |
+| Playmaking | Pass Accuracy | 91–92 | +1–2 | **93** |
+| Defense | Block | 77 | — | **77** |
+| Rebounding | Defensive Rebound | 94–95 | +4–5 (Rebounding spec) | **99** |
+| Physical | Vertical | 83 | — | **83** |
+| Physical | Speed | 70+ | — or boost w/ spec breakers | **70+** |
+
+### Cap Breaker Strategy
+- **Rebounding Specialization** (requires 60 DREB): Use spec cap breakers to push DREB from ~94–95 → 99. Spec breakers can also go to Physicals (speed boost option).
+- **Season/REP cap breakers**: Apply to 3PT (80→83) and Pass Accuracy (91→93).
+- Lower-rated attributes get bigger boosts per cap breaker — so 3PT at 80 may only need 1–2 breakers to reach 83.
+- Max 5 cap breakers per attribute.
+
+### Key Badges Unlocked
+| Badge | Tier | Requirement |
+|-------|------|-------------|
+| Rebound Chaser | HOF+ | 99 DREB |
+| Break Starter | HOF | 93 Pass Accuracy |
+| Limitless Range | Bronze | 83 3PT |
+| Rise Up | Gold | 90 SD + 66 Vert |
+| Pogo Stick | HOF | 83 Vertical |
+| Paint Controller | Gold | 77 Block (IntD req met) |
+
+### What to Sacrifice (dump stats)
+- Interior Defense: 60–70 (rely on Block + Vertical for rim protection)
+- Perimeter Defense: 25–45 (you're not switching onto guards)
+- Close Shot: 60–70
+- Driving Layup: 50–60
+- Driving Dunk: 50–60
+- Strength: 70–75 (no Gold Brick Wall, but serviceable)
+- Steal: 25–40
+
+### Pros
+- 99 DREB — absolute glass cleaner
+- HOF Break Starter — elite outlet passes trigger fast breaks
+- 83 3PT — Bronze Limitless, forces opposing C to the perimeter
+- 90 Standing Dunk — lob threat and putbacks
+- HOF Pogo Stick — multiple contest/block attempts
+- 70+ Speed — mobile enough to not get burned in transition
+
+### Cons
+- No Gold Brick Wall (Strength ~70–75) — may get bullied by 7'2"+ paint beasts
+- Low Perimeter Defense — liability if switched onto guards
+- Tight attribute budget — need to verify in builder that all targets are achievable at 6'11"/240
+- Bronze Limitless only (not Gold) — need to be more selective with 3PT attempts
+
+### TODO: Verify in Builder
+- [ ] Confirm 90 SD + 80 3PT + 92 Pass + 94 DREB + 77 Block + 83 Vert + 70 Speed all fit at 6'11"/240/default wingspan
+- [ ] Test if reducing height to 6'10" frees up enough points for higher speed
+- [ ] Check if +1 wingspan still allows 80+ base 3PT
+- [ ] Confirm Rebounding spec cap breakers can push 94→99 DREB (5 breakers needed?)
+
+---
+
 ## Notes
 - All builds assume Rebirth is unlocked for max badge potential
-- Cap Breaker (+1 system) can push 1–2 attributes over their cap
-- Sources: VortexGaming, RealSport101, GetHypedSports, NBA2KLab
+- Cap Breakers: up to 5 per attribute, lower-rated attributes get bigger boosts
+- Rebounding Specialization cap breakers can go to Rebounding OR Physicals
+- Season/REP/Crew cap breakers can go to any attribute
+- Sources: VortexGaming, RealSport101, GetHypedSports, NBA2KLab, 2K Official
