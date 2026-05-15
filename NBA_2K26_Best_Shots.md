@@ -99,7 +99,54 @@ Your stats unlock these options:
 
 ---
 
+---
+
+## For a 6'11" Center (80–83 Mid/3PT — Custom Build)
+
+At 6'11" your options are limited to animations that allow 6'10"+ height. KD's go-to shot requires 87 — you don't qualify with 80–83.
+
+### What You Qualify For
+
+| Slot | Animation | Req | Why |
+|------|-----------|-----|-----|
+| **Go-To Shot** | Anthony Davis | 78 | Safe pick, designed for bigs, smooth |
+| **Go-To Shot** | Dirk Nowitzki | 78 | Iconic high release, hard to contest |
+| **Go-To Shot** | Joel Embiid | 77 | Modern big man movement |
+| **Go-To Shot** | Bam Adebayo | 81 | Good if you hit 81+ |
+| **Go-To Shot** | Julius Randle | 83 | Best option IF you hit 83 3PT |
+| **Pull-Up** | Paolo Banchero | 79 | Modern stretch big, 6'10"+ |
+| **Pull-Up** | Jaren Jackson Jr. | 79 | Quick for a big, 6'10"+ |
+| **Pull-Up** | Anthony Davis | 78 | Reliable, 6'10"+ |
+| **Spin Jumper** | Brook Lopez | 80 | Only real option at 6'10"+ |
+| **Hop Jumper** | Dirk Nowitzki | 78 | One-leg fade, 6'5"+ |
+| **Hop Jumper** | Victor Wembanyama | 78 | 6'10"+, modern big |
+| **Hop Jumper** | Julius Randle | 83 | If you hit 83 |
+| **Post Fade** | Dirk Nowitzki | None | 6'10"–7'4", legendary one-leg |
+| **Post Fade** | Nikola Jokic | None | 6'10"–7'4", smooth |
+| **Post Hook** | Kareem Abdul-Jabbar | None | Sky Hook, any height |
+| **Post Go-To** | Dirk Nowitzki | None | Any height |
+| **Post Go-To** | Nikola Jokic | None | Any height |
+| **Post Hop Shot** | Dirk Nowitzki | None | 6'10"–7'4" |
+| **Post Hop Shot** | Giannis | None | 6'10"–7'4" |
+
+### Recommended Loadout (6'11" / 80–83 3PT)
+
+| Slot | Pick |
+|------|------|
+| Go-To Shot | **Dirk Nowitzki** (high release, iconic) |
+| Pull-Up | **Paolo Banchero** (modern big, 79 req) |
+| Spin Jumper | **Brook Lopez** (only option, 80 req) |
+| Hop Jumper | **Dirk Nowitzki** (one-leg fade, 78 req) |
+| Post Fade | **Dirk Nowitzki** (no req) |
+| Post Hook | **Kareem Abdul-Jabbar** (no req) |
+| Post Go-To | **Nikola Jokic** (no req) |
+| Post Hop Shot | **Dirk Nowitzki** (no req) |
+| Free Throw | **Breanna Stewart** (no req, easy green) |
+
+---
+
 ## Sources
 - VortexGaming (Meta Verified Shooting Animations guide)
 - MagicGameWorld (Ultimate Shooting Animation Guide)
+- GameRant (All Shooting Animation Requirements — full tables)
 - NBA2KLab
