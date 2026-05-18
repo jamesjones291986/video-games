@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA 2K Ratings</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 2em; margin: 20px 0; color: #fff; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+
+        /* Tabs */
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .tab { padding: 10px 24px; border-radius: 8px; cursor: pointer; background: #16213e; border: 1px solid #333; color: #aaa; transition: all 0.2s; }
+        .tab.active { background: #0f3460; border-color: #e94560; color: #fff; }
+        .tab:hover { border-color: #e94560; }
+
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* Player Cards */
+        .player-card { background: #16213e; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #333; }
+        .player-name { font-size: 1.4em; font-weight: bold; margin-bottom: 12px; }
+        .position-block { margin: 10px 0; }
+        .position-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .pos-badge { background: #e94560; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 0.85em; }
+        .overall { font-size: 1.1em; }
+        .grade-row { display: flex; justify-content: space-between; padding: 4px 12px; border-radius: 4px; }
+        .grade-row:nth-child(odd) { background: rgba(255,255,255,0.03); }
+        .grade-cat { color: #aaa; }
+        .grade-val { font-weight: bold; }
+        .grade-S { color: #ffd700; }
+        .grade-A { color: #4ade80; }
+        .grade-B { color: #60a5fa; }
+        .grade-C { color: #a78bfa; }
+        .grade-D { color: #f97316; }
+        .grade-F { color: #ef4444; }
+        .vote-count { color: #666; font-size: 0.85em; }
+
+        /* Leaderboard */
+        .lb-position { margin-bottom: 24px; }
+        .lb-title { font-size: 1.2em; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #333; }
+        .lb-row { display: flex; align-items: center; padding: 8px 12px; border-radius: 6px; margin: 4px 0; background: #16213e; }
+        .lb-rank { width: 30px; font-weight: bold; color: #888; }
+        .lb-name { flex: 1; }
+        .lb-overall { font-weight: bold; margin-right: 12px; }
+        .lb-score { color: #888; font-size: 0.9em; }
+        .lb-row:first-child .lb-rank { color: #ffd700; }
+
+        /* Vote */
+        .form-container { text-align: center; }
+        .form-container iframe { border: none; border-radius: 12px; background: #fff; }
+        .form-placeholder { background: #16213e; border-radius: 12px; padding: 40px; text-align: center; color: #888; border: 1px dashed #444; }
+
+        .no-data { text-align: center; color: #666; padding: 40px; }
+        .weight-legend { text-align: center; color: #666; font-size: 0.85em; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏀 NBA 2K Ratings</h1>
+        <p class="subtitle">Weighted player ratings by position</p>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="leaderboard">Leaderboard</div>
+            <div class="tab" data-tab="players">Player Cards</div>
+            <div class="tab" data-tab="vote">Vote</div>
+        </div>
+
+        <div id="leaderboard" class="panel active"></div>
+        <div id="players" class="panel"></div>
+        <div id="vote" class="panel">
+            <div class="form-container" id="form-container">
+                <div class="form-placeholder">
+                    <p>Google Form will be embedded here.</p>
+                    <p style="margin-top:10px;">Set <code>form_url</code> in data.json config to enable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const POSITION_ORDER = ['PG', 'SG', 'SF', 'PF', 'C'];
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        async function load() {
+            try {
+                const res = await fetch('data.json');
+                const data = await res.json();
+                renderLeaderboard(data.leaderboard);
+                renderPlayers(data.players, data.config);
+                renderForm(data.config);
+            } catch (e) {
+                document.getElementById('leaderboard').innerHTML = '<div class="no-data">No data yet. Run pull_ratings.py to generate.</div>';
+            }
+        }
+
+        function renderLeaderboard(leaderboard) {
+            const el = document.getElementById('leaderboard');
+            if (!leaderboard || Object.keys(leaderboard).length === 0) {
+                el.innerHTML = '<div class="no-data">No ratings yet.</div>';
+                return;
+            }
+            let html = '';
+            for (const pos of POSITION_ORDER) {
+                const players = leaderboard[pos];
+                if (!players || players.length === 0) continue;
+                html += `<div class="lb-position"><div class="lb-title">${pos}</div>`;
+                players.forEach((p, i) => {
+                    html += `<div class="lb-row">
+                        <span class="lb-rank">${i + 1}</span>
+                        <span class="lb-name">${p.player}</span>
+                        <span class="lb-overall grade-${p.overall}">${p.overall}</span>
+                        <span class="lb-score">${p.score.toFixed(2)} (${p.vote_count} vote${p.vote_count !== 1 ? 's' : ''})</span>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+            el.innerHTML = html;
+        }
+
+        function renderPlayers(players, config) {
+            const el = document.getElementById('players');
+            if (!players || Object.keys(players).length === 0) {
+                el.innerHTML = '<div class="no-data">No ratings yet.</div>';
+                return;
+            }
+            let html = '<div class="weight-legend">★★★ = core &nbsp; ★★ = defense &nbsp; ★ = role skill</div>';
+            for (const [name, positions] of Object.entries(players)) {
+                html += `<div class="player-card"><div class="player-name">${name}</div>`;
+                for (const [pos, data] of Object.entries(positions)) {
+                    const weights = config.positions[pos];
+                    html += `<div class="position-block">
+                        <div class="position-header">
+                            <span class="pos-badge">${pos}</span>
+                            <span class="overall grade-${data.overall}">${data.overall} (${data.score.toFixed(2)})</span>
+                            <span class="vote-count">${data.vote_count} vote${data.vote_count !== 1 ? 's' : ''}</span>
+                        </div>`;
+                    for (const [cat, grade] of Object.entries(data.grades)) {
+                        const w = weights[cat] || 1;
+                        const stars = '★'.repeat(w);
+                        html += `<div class="grade-row">
+                            <span class="grade-cat">${cat} <span style="color:#555">${stars}</span></span>
+                            <span class="grade-val grade-${grade}">${grade}</span>
+                        </div>`;
+                    }
+                    html += '</div>';
+                }
+                html += '</div>';
+            }
+            el.innerHTML = html;
+        }
+
+        function renderForm(config) {
+            const url = config.form_url;
+            if (url) {
+                document.getElementById('form-container').innerHTML =
+                    `<iframe src="${url}" width="100%" height="800" frameborder="0">Loading…</iframe>`;
+            }
+        }
+
+        load();
+    </script>
+</body>
+</html>
