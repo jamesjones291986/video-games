@@ -6,7 +6,7 @@ from pathlib import Path
 DIR = Path(__file__).parent
 CONFIG = json.loads((DIR / "config.json").read_text())
 RATINGS = json.loads((DIR / "ratings.json").read_text())
-OUTPUT = DIR / "docs" / "data.json"
+OUTPUT = DIR.parent.parent / "docs" / "data.json"
 
 GRADE_VALUES = {g: len(CONFIG["grades"]) - i for i, g in enumerate(CONFIG["grades"])}
 

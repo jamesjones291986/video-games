@@ -9,7 +9,7 @@ from google.oauth2.service_account import Credentials
 
 DIR = Path(__file__).parent
 CONFIG = json.loads((DIR / "config.json").read_text())
-OUTPUT = DIR / "docs" / "data.json"
+OUTPUT = DIR.parent.parent / "docs" / "data.json"
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 

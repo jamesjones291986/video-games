@@ -1,0 +1,248 @@
+{
+  "players": {
+    "JonesyKC": {
+      "PG": {
+        "grades": {
+          "Basketball IQ": "S",
+          "Inside Scoring": "S",
+          "Outside Scoring": "S",
+          "Perimeter Defense": "A",
+          "Ball Handling": "S",
+          "Passing/Vision": "B"
+        },
+        "overall": "S",
+        "score": 5.69,
+        "vote_count": 1
+      }
+    },
+    "LegendRuthless": {
+      "3 & D": {
+        "grades": {
+          "Basketball IQ": "A",
+          "Outside Scoring": "A",
+          "Perimeter Defense": "B",
+          "Off-Ball Movement": "A",
+          "Finishing": "D",
+          "Ball Handling": "C"
+        },
+        "overall": "B",
+        "score": 4.36,
+        "vote_count": 1
+      }
+    },
+    "dontguardmepls": {
+      "PG": {
+        "grades": {
+          "Basketball IQ": "C",
+          "Inside Scoring": "B",
+          "Outside Scoring": "B",
+          "Perimeter Defense": "B",
+          "Ball Handling": "S",
+          "Passing/Vision": "C"
+        },
+        "overall": "B",
+        "score": 3.85,
+        "vote_count": 1
+      }
+    },
+    "Skip2mySmoov": {
+      "Lock": {
+        "grades": {
+          "Basketball IQ": "B",
+          "Perimeter Defense": "A",
+          "Outside Scoring": "A",
+          "Athleticism": "A"
+        },
+        "overall": "A",
+        "score": 4.67,
+        "vote_count": 1
+      }
+    },
+    "Emmons Clutched": {
+      "Backend": {
+        "grades": {
+          "Basketball IQ": "C",
+          "Interior Defense": "B",
+          "Rebounding": "B",
+          "Positioning": "C",
+          "Passing/Vision": "C"
+        },
+        "overall": "B",
+        "score": 3.5,
+        "vote_count": 1
+      }
+    },
+    "GCade": {
+      "Big": {
+        "grades": {
+          "Basketball IQ": "B",
+          "Inside Scoring": "A",
+          "Outside Scoring": "B",
+          "Interior Defense": "B",
+          "Rebounding": "A",
+          "Passing/Vision": "B",
+          "Positioning": "B"
+        },
+        "overall": "B",
+        "score": 4.29,
+        "vote_count": 1
+      }
+    },
+    "Super Nintylo": {
+      "Big": {
+        "grades": {
+          "Basketball IQ": "C",
+          "Inside Scoring": "C",
+          "Outside Scoring": "B",
+          "Interior Defense": "C",
+          "Rebounding": "S",
+          "Passing/Vision": "C",
+          "Positioning": "B"
+        },
+        "overall": "B",
+        "score": 3.5,
+        "vote_count": 1
+      }
+    },
+    "KrippsOHoulihan": {
+      "3 & D": {
+        "grades": {
+          "Basketball IQ": "C",
+          "Outside Scoring": "B",
+          "Perimeter Defense": "C",
+          "Off-Ball Movement": "C",
+          "Finishing": "B",
+          "Ball Handling": "C"
+        },
+        "overall": "C",
+        "score": 3.36,
+        "vote_count": 1
+      }
+    }
+  },
+  "leaderboard": {
+    "PG": [
+      {
+        "player": "JonesyKC",
+        "overall": "S",
+        "score": 5.69,
+        "vote_count": 1
+      },
+      {
+        "player": "dontguardmepls",
+        "overall": "B",
+        "score": 3.85,
+        "vote_count": 1
+      }
+    ],
+    "3 & D": [
+      {
+        "player": "LegendRuthless",
+        "overall": "B",
+        "score": 4.36,
+        "vote_count": 1
+      },
+      {
+        "player": "KrippsOHoulihan",
+        "overall": "C",
+        "score": 3.36,
+        "vote_count": 1
+      }
+    ],
+    "Lock": [
+      {
+        "player": "Skip2mySmoov",
+        "overall": "A",
+        "score": 4.67,
+        "vote_count": 1
+      }
+    ],
+    "Backend": [
+      {
+        "player": "Emmons Clutched",
+        "overall": "B",
+        "score": 3.5,
+        "vote_count": 1
+      }
+    ],
+    "Big": [
+      {
+        "player": "GCade",
+        "overall": "B",
+        "score": 4.29,
+        "vote_count": 1
+      },
+      {
+        "player": "Super Nintylo",
+        "overall": "B",
+        "score": 3.5,
+        "vote_count": 1
+      }
+    ]
+  },
+  "config": {
+    "grades": [
+      "S",
+      "A",
+      "B",
+      "C",
+      "D",
+      "F"
+    ],
+    "positions": {
+      "PG": {
+        "Basketball IQ": 3,
+        "Inside Scoring": 3,
+        "Outside Scoring": 3,
+        "Perimeter Defense": 2,
+        "Ball Handling": 1,
+        "Passing/Vision": 1
+      },
+      "3 & D": {
+        "Basketball IQ": 3,
+        "Outside Scoring": 3,
+        "Perimeter Defense": 2,
+        "Off-Ball Movement": 1,
+        "Finishing": 1,
+        "Ball Handling": 1
+      },
+      "Lock": {
+        "Basketball IQ": 3,
+        "Perimeter Defense": 3,
+        "Outside Scoring": 2,
+        "Athleticism": 1
+      },
+      "Backend": {
+        "Basketball IQ": 3,
+        "Interior Defense": 3,
+        "Rebounding": 2,
+        "Positioning": 1,
+        "Passing/Vision": 1
+      },
+      "Big": {
+        "Basketball IQ": 3,
+        "Inside Scoring": 3,
+        "Outside Scoring": 3,
+        "Interior Defense": 2,
+        "Rebounding": 1,
+        "Passing/Vision": 1,
+        "Positioning": 1
+      }
+    },
+    "players": [
+      "LegendRuthless",
+      "JonesyKC",
+      "dontguardmepls",
+      "Skip2mySmoov",
+      "Emmons Clutched",
+      "GCade",
+      "Super Nintylo",
+      "KrippsOHoulihan",
+      "Blackion",
+      "Zayxtwoxtime",
+      "Parlay",
+      "Tasteofink"
+    ],
+    "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdcyg2Lbpfbl9xT0KuRHpSHp3NwdDIiHrbpzvCs0jHzvn-9yg/viewform?embedded=true"
+  }
+}
