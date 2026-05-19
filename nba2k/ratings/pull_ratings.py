@@ -1,4 +1,8 @@
-"""Pull ratings from Google Sheets (Form responses) and generate data.json for the site."""
+"""Pull ratings from Google Sheets (Form responses) and generate data.json for the site.
+
+Auto-detects column structure from the sheet data itself — if you change the form,
+the script adapts. Only weights in config.json need manual updates.
+"""
 
 import json
 import os
@@ -14,17 +18,7 @@ OUTPUT = DIR.parent.parent / "docs" / "data.json"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 GRADE_VALUES = {g: len(CONFIG["grades"]) - i for i, g in enumerate(CONFIG["grades"])}
-
-# Column ranges per position (0-indexed from start of grade columns)
-# Based on sheet: Timestamp(0), Name(1), Player(2), Position(3), then grades start at 4
-# PG: cols 4-9, 3&D: cols 10-12, Lock: cols 13-15, Backend: cols 16-18, Big: cols 19-22
-POSITION_COLUMNS = {
-    "PG": {"start": 4, "cats": ["Basketball IQ", "Inside Scoring", "Outside Scoring", "Perimeter Defense", "Ball Handling", "Passing/Vision"]},
-    "3&D": {"start": 10, "cats": ["Basketball IQ", "Defense", "Outside Scoring"]},
-    "Lock": {"start": 13, "cats": ["Basketball IQ", "Defense", "Outside Scoring"]},
-    "Backend": {"start": 16, "cats": ["Basketball IQ", "Defense", "Rebounding"]},
-    "Big": {"start": 19, "cats": ["Basketball IQ", "Rebounding", "Defense", "Passing/Vision"]},
-}
+VALID_GRADES = set(GRADE_VALUES.keys())
 
 
 def get_sheet():
@@ -35,11 +29,41 @@ def get_sheet():
     return gc.open_by_key(sheet_id).sheet1
 
 
-def parse_responses(rows):
+def detect_columns(rows):
+    """Auto-detect which columns belong to which position by looking at actual data.
+
+    For each position, find which grade columns (4+) have data when that position is selected.
+    Returns {position: [(col_index, header_name), ...]}
+    """
+    headers = rows[0]
+    position_cols = {}
+
+    for row in rows[1:]:
+        if len(row) < 5:
+            continue
+        position = row[3].strip()
+        if not position:
+            continue
+
+        for i in range(4, len(row)):
+            if i < len(row) and row[i].strip().upper() in VALID_GRADES:
+                if position not in position_cols:
+                    position_cols[position] = set()
+                position_cols[position].add(i)
+
+    # Convert to sorted list with header names
+    result = {}
+    for pos, cols in position_cols.items():
+        result[pos] = [(i, headers[i].strip() if i < len(headers) else f"Col{i}") for i in sorted(cols)]
+
+    return result
+
+
+def parse_responses(rows, position_cols):
     if len(rows) < 2:
         return {}
 
-    votes = {}  # {player: {position: {voter: {cat: grade}}}}
+    votes = {}
 
     for row in rows[1:]:
         if len(row) < 5:
@@ -49,17 +73,15 @@ def parse_responses(rows):
         player = row[2].strip()
         position = row[3].strip()
 
-        if not voter or not player or position not in POSITION_COLUMNS:
+        if not voter or not player or position not in position_cols:
             continue
 
-        col_info = POSITION_COLUMNS[position]
         grades = {}
-        for i, cat in enumerate(col_info["cats"]):
-            col_idx = col_info["start"] + i
+        for col_idx, cat_name in position_cols[position]:
             if col_idx < len(row):
                 val = row[col_idx].strip().upper()
-                if val in GRADE_VALUES:
-                    grades[cat] = val
+                if val in VALID_GRADES:
+                    grades[cat_name] = val
 
         if grades:
             votes.setdefault(player, {}).setdefault(position, {})[voter] = grades
@@ -67,13 +89,16 @@ def parse_responses(rows):
     return votes
 
 
-def aggregate(votes):
+def aggregate(votes, position_cols):
     results = {}
     for player, positions in votes.items():
         results[player] = {}
         for pos, voter_grades in positions.items():
-            weights = CONFIG["positions"][pos]
-            categories = list(weights.keys())
+            # Get categories for this position from detected columns
+            categories = [cat for _, cat in position_cols[pos]]
+
+            # Use weights from config if available, default to 1
+            config_weights = CONFIG.get("positions", {}).get(pos, {})
 
             avg_grades = {}
             for cat in categories:
@@ -82,8 +107,9 @@ def aggregate(votes):
                     avg_grades[cat] = sum(values) / len(values)
 
             if avg_grades:
+                weights = {c: config_weights.get(c, 1) for c in avg_grades}
                 total = sum(weights[c] * v for c, v in avg_grades.items())
-                weight_sum = sum(weights[c] for c in avg_grades)
+                weight_sum = sum(weights.values())
                 overall_score = total / weight_sum
                 results[player][pos] = {
                     "grades": {c: score_to_grade(v) for c, v in avg_grades.items()},
@@ -122,16 +148,28 @@ def main():
     rows = sheet.get_all_values()
     print(f"  Found {len(rows) - 1} responses")
 
-    votes = parse_responses(rows)
-    results = aggregate(votes)
+    position_cols = detect_columns(rows)
+    print(f"  Detected positions: {list(position_cols.keys())}")
+    for pos, cols in position_cols.items():
+        cats = [c for _, c in cols]
+        print(f"    {pos}: {cats}")
+
+    votes = parse_responses(rows, position_cols)
+    results = aggregate(votes, position_cols)
     leaderboard = build_leaderboard(results)
+
+    # Build positions config from detected data + weights
+    positions_config = {}
+    for pos, cols in position_cols.items():
+        config_weights = CONFIG.get("positions", {}).get(pos, {})
+        positions_config[pos] = {cat: config_weights.get(cat, 1) for _, cat in cols}
 
     output = {
         "players": results,
         "leaderboard": leaderboard,
         "config": {
             "grades": CONFIG["grades"],
-            "positions": CONFIG["positions"],
+            "positions": positions_config,
             "players": CONFIG["players"],
             "form_url": CONFIG.get("form_url", ""),
         },
