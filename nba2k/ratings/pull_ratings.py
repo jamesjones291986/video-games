@@ -15,6 +15,17 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 GRADE_VALUES = {g: len(CONFIG["grades"]) - i for i, g in enumerate(CONFIG["grades"])}
 
+# Column ranges per position (0-indexed from start of grade columns)
+# Based on sheet: Timestamp(0), Name(1), Player(2), Position(3), then grades start at 4
+# PG: cols 4-9, 3&D: cols 10-12, Lock: cols 13-15, Backend: cols 16-18, Big: cols 19-22
+POSITION_COLUMNS = {
+    "PG": {"start": 4, "cats": ["Basketball IQ", "Inside Scoring", "Outside Scoring", "Perimeter Defense", "Ball Handling", "Passing/Vision"]},
+    "3&D": {"start": 10, "cats": ["Basketball IQ", "Defense", "Outside Scoring"]},
+    "Lock": {"start": 13, "cats": ["Basketball IQ", "Defense", "Outside Scoring"]},
+    "Backend": {"start": 16, "cats": ["Basketball IQ", "Defense", "Rebounding"]},
+    "Big": {"start": 19, "cats": ["Basketball IQ", "Rebounding", "Defense", "Passing/Vision"]},
+}
+
 
 def get_sheet():
     creds_file = os.environ.get("GOOGLE_CREDENTIALS_FILE", str(DIR / "credentials.json"))
@@ -25,56 +36,30 @@ def get_sheet():
 
 
 def parse_responses(rows):
-    """Parse form responses handling multi-section column layout.
-
-    Google Forms with sections creates columns for ALL categories across all sections.
-    Each row only has values in the columns for the section the voter filled out.
-    We match column headers to position categories to figure out which grades belong where.
-    """
     if len(rows) < 2:
         return {}
 
-    headers = [h.strip() for h in rows[0]]
     votes = {}  # {player: {position: {voter: {cat: grade}}}}
 
-    # Build a map of column index → (position, category) by matching headers to config
-    col_map = {}
-    for i, header in enumerate(headers):
-        for pos, cats in CONFIG["positions"].items():
-            if header in cats:
-                col_map.setdefault(i, []).append((pos, header))
-
     for row in rows[1:]:
-        if len(row) < 4:
+        if len(row) < 5:
             continue
 
-        voter = row[1].strip() if len(row) > 1 else ""
-        player = row[2].strip() if len(row) > 2 else ""
-        position = row[3].strip() if len(row) > 3 else ""
+        voter = row[1].strip()
+        player = row[2].strip()
+        position = row[3].strip()
 
-        if not voter or not player or position not in CONFIG["positions"]:
+        if not voter or not player or position not in POSITION_COLUMNS:
             continue
 
-        expected_cats = set(CONFIG["positions"][position].keys())
+        col_info = POSITION_COLUMNS[position]
         grades = {}
-
-        for i in range(4, len(row)):
-            val = row[i].strip().upper() if i < len(row) else ""
-            if val not in GRADE_VALUES:
-                continue
-            if i in col_map:
-                for pos, cat in col_map[i]:
-                    if pos == position and cat in expected_cats:
-                        grades[cat] = val
-                        break
-
-        # Fallback: if column matching didn't work, try sequential assignment
-        if not grades:
-            cats = list(CONFIG["positions"][position].keys())
-            grade_vals = [row[i].strip().upper() for i in range(4, len(row))
-                         if i < len(row) and row[i].strip().upper() in GRADE_VALUES]
-            for cat, val in zip(cats, grade_vals):
-                grades[cat] = val
+        for i, cat in enumerate(col_info["cats"]):
+            col_idx = col_info["start"] + i
+            if col_idx < len(row):
+                val = row[col_idx].strip().upper()
+                if val in GRADE_VALUES:
+                    grades[cat] = val
 
         if grades:
             votes.setdefault(player, {}).setdefault(position, {})[voter] = grades

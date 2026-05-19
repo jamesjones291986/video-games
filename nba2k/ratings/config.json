@@ -9,42 +9,33 @@
       "Ball Handling": 1,
       "Passing/Vision": 1
     },
-    "3 & D": {
+    "3&D": {
       "Basketball IQ": 3,
-      "Outside Scoring": 3,
-      "Perimeter Defense": 2,
-      "Off-Ball Movement": 1,
-      "Finishing": 1,
-      "Ball Handling": 1
+      "Defense": 2,
+      "Outside Scoring": 3
     },
     "Lock": {
       "Basketball IQ": 3,
-      "Perimeter Defense": 3,
-      "Outside Scoring": 2,
-      "Athleticism": 1
+      "Defense": 3,
+      "Outside Scoring": 2
     },
     "Backend": {
       "Basketball IQ": 3,
-      "Interior Defense": 3,
-      "Rebounding": 2,
-      "Positioning": 1,
-      "Passing/Vision": 1
+      "Defense": 3,
+      "Rebounding": 2
     },
     "Big": {
       "Basketball IQ": 3,
-      "Inside Scoring": 3,
-      "Outside Scoring": 3,
-      "Interior Defense": 2,
-      "Rebounding": 1,
-      "Passing/Vision": 1,
-      "Positioning": 1
+      "Rebounding": 2,
+      "Defense": 2,
+      "Passing/Vision": 1
     }
   },
   "players": [
     "LegendRuthless",
     "JonesyKC",
     "dontguardmepls",
-    "Skip2mySmoov",
+    "skip2mysmoov",
     "Emmons Clutched",
     "GCade",
     "Super Nintylo",
@@ -52,7 +43,8 @@
     "Blackion",
     "Zayxtwoxtime",
     "Parlay",
-    "Tasteofink"
+    "blindone1",
+    "tasteofink"
   ],
   "form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdcyg2Lbpfbl9xT0KuRHpSHp3NwdDIiHrbpzvCs0jHzvn-9yg/viewform?embedded=true",
   "sheet_id": "1397NWGbM-6cSxU6B-R3N0SfnzzPIImRjrhTPAbHa_Ho"
