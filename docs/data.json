@@ -47,6 +47,28 @@
       }
     ]
   },
+  "history": {
+    "skip2mysmoov": {
+      "PG": [
+        {
+          "week": "2026-W21",
+          "score": 6.0,
+          "grade": "S",
+          "votes": 1
+        }
+      ]
+    },
+    "LegendRuthless": {
+      "Big": [
+        {
+          "week": "2026-W21",
+          "score": 5.06,
+          "grade": "A",
+          "votes": 2
+        }
+      ]
+    }
+  },
   "config": {
     "grades": [
       "S",

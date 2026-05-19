@@ -6,6 +6,7 @@ the script adapts. Only weights in config.json need manual updates.
 
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 
 import gspread
@@ -30,11 +31,7 @@ def get_sheet():
 
 
 def detect_columns(rows):
-    """Auto-detect which columns belong to which position by looking at actual data.
-
-    For each position, find which grade columns (4+) have data when that position is selected.
-    Returns {position: [(col_index, header_name), ...]}
-    """
+    """Auto-detect which columns belong to which position by looking at actual data."""
     headers = rows[0]
     position_cols = {}
 
@@ -51,7 +48,6 @@ def detect_columns(rows):
                     position_cols[position] = set()
                 position_cols[position].add(i)
 
-    # Convert to sorted list with header names
     result = {}
     for pos, cols in position_cols.items():
         result[pos] = [(i, headers[i].strip() if i < len(headers) else f"Col{i}") for i in sorted(cols)]
@@ -59,16 +55,39 @@ def detect_columns(rows):
     return result
 
 
+def parse_timestamp(ts_str):
+    """Parse Google Sheets timestamp format."""
+    for fmt in ("%m/%d/%Y %H:%M:%S", "%Y-%m-%d %H:%M:%S", "%m/%d/%Y"):
+        try:
+            return datetime.strptime(ts_str.strip(), fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def get_week_key(dt):
+    """Return ISO week string like '2026-W20'."""
+    return f"{dt.isocalendar()[0]}-W{dt.isocalendar()[1]:02d}"
+
+
+def get_month_key(dt):
+    """Return month string like '2026-05'."""
+    return dt.strftime("%Y-%m")
+
+
 def parse_responses(rows, position_cols):
+    """Parse responses, returning both flat votes and time-tagged votes."""
     if len(rows) < 2:
-        return {}
+        return {}, []
 
     votes = {}
+    timed_votes = []  # [(timestamp, player, position, grades)]
 
     for row in rows[1:]:
         if len(row) < 5:
             continue
 
+        timestamp = parse_timestamp(row[0]) if row[0] else None
         voter = row[1].strip()
         player = row[2].strip()
         position = row[3].strip()
@@ -85,8 +104,49 @@ def parse_responses(rows, position_cols):
 
         if grades:
             votes.setdefault(player, {}).setdefault(position, {})[voter] = grades
+            if timestamp:
+                timed_votes.append((timestamp, player, position, grades))
 
-    return votes
+    return votes, timed_votes
+
+
+def calc_score(grades, pos):
+    """Calculate weighted score for a set of grades."""
+    config_weights = CONFIG.get("positions", {}).get(pos, {})
+    weights = {c: config_weights.get(c, 1) for c in grades}
+    total = sum(weights[c] * GRADE_VALUES[g] for c, g in grades.items())
+    weight_sum = sum(weights.values())
+    return total / weight_sum if weight_sum else 0
+
+
+def build_history(timed_votes):
+    """Group votes by player/position/week and calculate rolling scores."""
+    # Group by player → position → week
+    weekly = {}  # {player: {position: {week_key: [scores]}}}
+
+    for ts, player, position, grades in timed_votes:
+        week = get_week_key(ts)
+        score = calc_score(grades, position)
+        weekly.setdefault(player, {}).setdefault(position, {}).setdefault(week, []).append(score)
+
+    # Average scores per week
+    history = {}  # {player: {position: [{week, score, grade}]}}
+    for player, positions in weekly.items():
+        history[player] = {}
+        for pos, weeks in positions.items():
+            entries = []
+            for week in sorted(weeks.keys()):
+                scores = weeks[week]
+                avg = sum(scores) / len(scores)
+                entries.append({
+                    "week": week,
+                    "score": round(avg, 2),
+                    "grade": score_to_grade(avg),
+                    "votes": len(scores),
+                })
+            history[player][pos] = entries
+
+    return history
 
 
 def aggregate(votes, position_cols):
@@ -94,10 +154,7 @@ def aggregate(votes, position_cols):
     for player, positions in votes.items():
         results[player] = {}
         for pos, voter_grades in positions.items():
-            # Get categories for this position from detected columns
             categories = [cat for _, cat in position_cols[pos]]
-
-            # Use weights from config if available, default to 1
             config_weights = CONFIG.get("positions", {}).get(pos, {})
 
             avg_grades = {}
@@ -150,15 +207,12 @@ def main():
 
     position_cols = detect_columns(rows)
     print(f"  Detected positions: {list(position_cols.keys())}")
-    for pos, cols in position_cols.items():
-        cats = [c for _, c in cols]
-        print(f"    {pos}: {cats}")
 
-    votes = parse_responses(rows, position_cols)
+    votes, timed_votes = parse_responses(rows, position_cols)
     results = aggregate(votes, position_cols)
     leaderboard = build_leaderboard(results)
+    history = build_history(timed_votes)
 
-    # Build positions config from detected data + weights
     positions_config = {}
     for pos, cols in position_cols.items():
         config_weights = CONFIG.get("positions", {}).get(pos, {})
@@ -167,6 +221,7 @@ def main():
     output = {
         "players": results,
         "leaderboard": leaderboard,
+        "history": history,
         "config": {
             "grades": CONFIG["grades"],
             "positions": positions_config,

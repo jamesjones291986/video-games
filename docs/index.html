@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Average Joes NBA 2K Ratings</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a1a; color: #eee; min-height: 100vh; }
@@ -12,7 +13,7 @@
         .subtitle { text-align: center; color: #ccc; margin-bottom: 30px; }
 
         /* Tabs */
-        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .tab { padding: 10px 24px; border-radius: 8px; cursor: pointer; background: #2a2a2a; border: 1px solid #444; color: #aaa; transition: all 0.2s; }
         .tab.active { background: #3a1a1a; border-color: #cc0000; color: #ffd700; }
         .tab:hover { border-color: #cc0000; }
@@ -49,6 +50,12 @@
         .lb-score { color: #888; font-size: 0.9em; }
         .lb-row:first-child .lb-rank { color: #ffd700; }
 
+        /* History */
+        .history-select { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .history-select select { padding: 8px 16px; border-radius: 6px; background: #2a2a2a; border: 1px solid #444; color: #fff; font-size: 1em; }
+        .chart-container { background: #2a2a2a; border-radius: 12px; padding: 20px; border: 1px solid #444; }
+        .chart-container canvas { max-height: 400px; }
+
         /* Vote */
         .form-container { text-align: center; }
         .form-container iframe { border: none; border-radius: 12px; background: #fff; }
@@ -66,11 +73,21 @@
         <div class="tabs">
             <div class="tab active" data-tab="leaderboard">Leaderboard</div>
             <div class="tab" data-tab="players">Player Cards</div>
+            <div class="tab" data-tab="history">History</div>
             <div class="tab" data-tab="vote">Vote</div>
         </div>
 
         <div id="leaderboard" class="panel active"></div>
         <div id="players" class="panel"></div>
+        <div id="history" class="panel">
+            <div class="history-select">
+                <select id="history-player"><option value="">Select Player</option></select>
+                <select id="history-position"><option value="">Select Position</option></select>
+            </div>
+            <div class="chart-container">
+                <canvas id="history-chart"></canvas>
+            </div>
+        </div>
         <div id="vote" class="panel">
             <div class="form-container" id="form-container">
                 <div class="form-placeholder">
@@ -83,6 +100,9 @@
 
     <script>
         const POSITION_ORDER = ['PG', '3&D', 'Lock', 'Backend', 'Big'];
+        const GRADE_COLORS = { S: '#ffd700', A: '#4ade80', B: '#60a5fa', C: '#a78bfa', D: '#f97316', F: '#ef4444' };
+        let historyData = {};
+        let historyChart = null;
 
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -100,8 +120,9 @@
                 renderLeaderboard(data.leaderboard);
                 renderPlayers(data.players, data.config);
                 renderForm(data.config);
+                setupHistory(data.history || {});
             } catch (e) {
-                document.getElementById('leaderboard').innerHTML = '<div class="no-data">No data yet. Run pull_ratings.py to generate.</div>';
+                document.getElementById('leaderboard').innerHTML = '<div class="no-data">No data yet.</div>';
             }
         }
 
@@ -159,6 +180,95 @@
                 html += '</div>';
             }
             el.innerHTML = html;
+        }
+
+        function setupHistory(history) {
+            historyData = history;
+            const playerSelect = document.getElementById('history-player');
+            const posSelect = document.getElementById('history-position');
+
+            const players = Object.keys(history).sort();
+            players.forEach(p => {
+                playerSelect.add(new Option(p, p));
+            });
+
+            playerSelect.addEventListener('change', () => {
+                posSelect.innerHTML = '<option value="">Select Position</option>';
+                const positions = Object.keys(history[playerSelect.value] || {});
+                positions.forEach(pos => posSelect.add(new Option(pos, pos)));
+                updateChart();
+            });
+
+            posSelect.addEventListener('change', updateChart);
+        }
+
+        function updateChart() {
+            const player = document.getElementById('history-player').value;
+            const pos = document.getElementById('history-position').value;
+
+            if (!player || !pos || !historyData[player] || !historyData[player][pos]) {
+                if (historyChart) { historyChart.destroy(); historyChart = null; }
+                return;
+            }
+
+            const entries = historyData[player][pos];
+            const labels = entries.map(e => e.week);
+            const scores = entries.map(e => e.score);
+
+            if (historyChart) historyChart.destroy();
+
+            historyChart = new Chart(document.getElementById('history-chart'), {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: `${player} - ${pos}`,
+                        data: scores,
+                        borderColor: '#ffd700',
+                        backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: scores.map(s => {
+                            if (s >= 5.5) return GRADE_COLORS.S;
+                            if (s >= 4.5) return GRADE_COLORS.A;
+                            if (s >= 3.5) return GRADE_COLORS.B;
+                            if (s >= 2.5) return GRADE_COLORS.C;
+                            if (s >= 1.5) return GRADE_COLORS.D;
+                            return GRADE_COLORS.F;
+                        }),
+                        pointRadius: 6,
+                        tension: 0.3,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            min: 1, max: 6,
+                            ticks: {
+                                callback: v => ['', 'F', 'D', 'C', 'B', 'A', 'S'][v] || '',
+                                color: '#aaa',
+                            },
+                            grid: { color: '#333' },
+                        },
+                        x: {
+                            ticks: { color: '#aaa' },
+                            grid: { color: '#333' },
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#fff' } },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => {
+                                    const entry = entries[ctx.dataIndex];
+                                    return `${entry.grade} (${entry.score}) - ${entry.votes} vote${entry.votes !== 1 ? 's' : ''}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function renderForm(config) {
