@@ -13,19 +13,132 @@
         "overall": "S",
         "score": 6.0,
         "vote_count": 1
+      },
+      "Backend": {
+        "grades": {
+          "Basketball IQ": "S",
+          "Defense": "S",
+          "Rebounding": "A"
+        },
+        "overall": "S",
+        "score": 5.75,
+        "vote_count": 1
       }
     },
     "LegendRuthless": {
       "Big": {
         "grades": {
-          "Basketball IQ": "S",
-          "Rebounding": "S",
+          "Basketball IQ": "A",
+          "Rebounding": "A",
           "Defense": "B",
           "Passing/Vision": "A"
         },
         "overall": "A",
-        "score": 5.06,
-        "vote_count": 2
+        "score": 5.04,
+        "vote_count": 3
+      }
+    },
+    "dontguardmepls": {
+      "PG": {
+        "grades": {
+          "Basketball IQ": "C",
+          "Inside Scoring": "C",
+          "Outside Scoring": "A",
+          "Perimeter Defense": "C",
+          "Ball Handling": "S",
+          "Passing/Vision": "C"
+        },
+        "overall": "B",
+        "score": 3.69,
+        "vote_count": 1
+      }
+    },
+    "JonesyKC": {
+      "3&D": {
+        "grades": {
+          "Basketball IQ": "A",
+          "Defense": "A",
+          "Outside Scoring": "S"
+        },
+        "overall": "A",
+        "score": 5.38,
+        "vote_count": 1
+      }
+    },
+    "Emmons Clutched": {
+      "3&D": {
+        "grades": {
+          "Basketball IQ": "A",
+          "Defense": "B",
+          "Outside Scoring": "B"
+        },
+        "overall": "B",
+        "score": 4.38,
+        "vote_count": 1
+      }
+    },
+    "Super Nintylo": {
+      "Big": {
+        "grades": {
+          "Basketball IQ": "C",
+          "Rebounding": "B",
+          "Defense": "B",
+          "Passing/Vision": "C"
+        },
+        "overall": "B",
+        "score": 3.5,
+        "vote_count": 1
+      }
+    },
+    "GCade": {
+      "Lock": {
+        "grades": {
+          "Basketball IQ": "A",
+          "Defense": "A",
+          "Outside Scoring": "B"
+        },
+        "overall": "A",
+        "score": 4.75,
+        "vote_count": 1
+      }
+    },
+    "KrippsOHoulihan": {
+      "3&D": {
+        "grades": {
+          "Basketball IQ": "B",
+          "Defense": "C",
+          "Outside Scoring": "B"
+        },
+        "overall": "B",
+        "score": 3.75,
+        "vote_count": 1
+      }
+    },
+    "Blackion": {
+      "PG": {
+        "grades": {
+          "Basketball IQ": "A",
+          "Inside Scoring": "C",
+          "Outside Scoring": "A",
+          "Perimeter Defense": "B",
+          "Ball Handling": "A",
+          "Passing/Vision": "A"
+        },
+        "overall": "B",
+        "score": 4.38,
+        "vote_count": 1
+      }
+    },
+    "Parlay": {
+      "3&D": {
+        "grades": {
+          "Basketball IQ": "A",
+          "Defense": "B",
+          "Outside Scoring": "A"
+        },
+        "overall": "A",
+        "score": 4.75,
+        "vote_count": 1
       }
     }
   },
@@ -36,14 +149,74 @@
         "overall": "S",
         "score": 6.0,
         "vote_count": 1
+      },
+      {
+        "player": "Blackion",
+        "overall": "B",
+        "score": 4.38,
+        "vote_count": 1
+      },
+      {
+        "player": "dontguardmepls",
+        "overall": "B",
+        "score": 3.69,
+        "vote_count": 1
+      }
+    ],
+    "Backend": [
+      {
+        "player": "skip2mysmoov",
+        "overall": "S",
+        "score": 5.75,
+        "vote_count": 1
       }
     ],
     "Big": [
       {
         "player": "LegendRuthless",
         "overall": "A",
-        "score": 5.06,
-        "vote_count": 2
+        "score": 5.04,
+        "vote_count": 3
+      },
+      {
+        "player": "Super Nintylo",
+        "overall": "B",
+        "score": 3.5,
+        "vote_count": 1
+      }
+    ],
+    "3&D": [
+      {
+        "player": "JonesyKC",
+        "overall": "A",
+        "score": 5.38,
+        "vote_count": 1
+      },
+      {
+        "player": "Parlay",
+        "overall": "A",
+        "score": 4.75,
+        "vote_count": 1
+      },
+      {
+        "player": "Emmons Clutched",
+        "overall": "B",
+        "score": 4.38,
+        "vote_count": 1
+      },
+      {
+        "player": "KrippsOHoulihan",
+        "overall": "B",
+        "score": 3.75,
+        "vote_count": 1
+      }
+    ],
+    "Lock": [
+      {
+        "player": "GCade",
+        "overall": "A",
+        "score": 4.75,
+        "vote_count": 1
       }
     ]
   },
@@ -56,15 +229,103 @@
           "grade": "S",
           "votes": 1
         }
+      ],
+      "Backend": [
+        {
+          "week": "2026-W21",
+          "score": 5.75,
+          "grade": "S",
+          "votes": 1
+        }
       ]
     },
     "LegendRuthless": {
       "Big": [
         {
           "week": "2026-W21",
-          "score": 5.06,
+          "score": 5.04,
           "grade": "A",
-          "votes": 2
+          "votes": 3
+        }
+      ]
+    },
+    "dontguardmepls": {
+      "PG": [
+        {
+          "week": "2026-W21",
+          "score": 3.69,
+          "grade": "B",
+          "votes": 1
+        }
+      ]
+    },
+    "JonesyKC": {
+      "3&D": [
+        {
+          "week": "2026-W21",
+          "score": 5.38,
+          "grade": "A",
+          "votes": 1
+        }
+      ]
+    },
+    "Emmons Clutched": {
+      "3&D": [
+        {
+          "week": "2026-W21",
+          "score": 4.38,
+          "grade": "B",
+          "votes": 1
+        }
+      ]
+    },
+    "Super Nintylo": {
+      "Big": [
+        {
+          "week": "2026-W21",
+          "score": 3.5,
+          "grade": "B",
+          "votes": 1
+        }
+      ]
+    },
+    "GCade": {
+      "Lock": [
+        {
+          "week": "2026-W21",
+          "score": 4.75,
+          "grade": "A",
+          "votes": 1
+        }
+      ]
+    },
+    "KrippsOHoulihan": {
+      "3&D": [
+        {
+          "week": "2026-W21",
+          "score": 3.75,
+          "grade": "B",
+          "votes": 1
+        }
+      ]
+    },
+    "Blackion": {
+      "PG": [
+        {
+          "week": "2026-W21",
+          "score": 4.38,
+          "grade": "B",
+          "votes": 1
+        }
+      ]
+    },
+    "Parlay": {
+      "3&D": [
+        {
+          "week": "2026-W21",
+          "score": 4.75,
+          "grade": "A",
+          "votes": 1
         }
       ]
     }
@@ -92,6 +353,21 @@
         "Rebounding": 2,
         "Defense": 2,
         "Passing/Vision": 1
+      },
+      "3&D": {
+        "Basketball IQ": 3,
+        "Defense": 2,
+        "Outside Scoring": 3
+      },
+      "Backend": {
+        "Basketball IQ": 3,
+        "Defense": 3,
+        "Rebounding": 2
+      },
+      "Lock": {
+        "Basketball IQ": 3,
+        "Defense": 3,
+        "Outside Scoring": 2
       }
     },
     "players": [
