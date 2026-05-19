@@ -110,8 +110,8 @@
           "Outside Scoring": "B"
         },
         "overall": "B",
-        "score": 3.75,
-        "vote_count": 1
+        "score": 3.56,
+        "vote_count": 2
       }
     },
     "Blackion": {
@@ -119,14 +119,14 @@
         "grades": {
           "Basketball IQ": "A",
           "Inside Scoring": "C",
-          "Outside Scoring": "A",
+          "Outside Scoring": "S",
           "Perimeter Defense": "B",
           "Ball Handling": "A",
           "Passing/Vision": "A"
         },
         "overall": "B",
-        "score": 4.38,
-        "vote_count": 1
+        "score": 4.42,
+        "vote_count": 2
       }
     },
     "Parlay": {
@@ -137,8 +137,8 @@
           "Outside Scoring": "A"
         },
         "overall": "A",
-        "score": 4.75,
-        "vote_count": 1
+        "score": 4.62,
+        "vote_count": 2
       }
     }
   },
@@ -153,8 +153,8 @@
       {
         "player": "Blackion",
         "overall": "B",
-        "score": 4.38,
-        "vote_count": 1
+        "score": 4.42,
+        "vote_count": 2
       },
       {
         "player": "dontguardmepls",
@@ -195,8 +195,8 @@
       {
         "player": "Parlay",
         "overall": "A",
-        "score": 4.75,
-        "vote_count": 1
+        "score": 4.62,
+        "vote_count": 2
       },
       {
         "player": "Emmons Clutched",
@@ -207,8 +207,8 @@
       {
         "player": "KrippsOHoulihan",
         "overall": "B",
-        "score": 3.75,
-        "vote_count": 1
+        "score": 3.56,
+        "vote_count": 2
       }
     ],
     "Lock": [
@@ -303,9 +303,9 @@
       "3&D": [
         {
           "week": "2026-W21",
-          "score": 3.75,
+          "score": 3.56,
           "grade": "B",
-          "votes": 1
+          "votes": 2
         }
       ]
     },
@@ -313,9 +313,9 @@
       "PG": [
         {
           "week": "2026-W21",
-          "score": 4.38,
+          "score": 4.42,
           "grade": "B",
-          "votes": 1
+          "votes": 2
         }
       ]
     },
@@ -323,9 +323,9 @@
       "3&D": [
         {
           "week": "2026-W21",
-          "score": 4.75,
+          "score": 4.62,
           "grade": "A",
-          "votes": 1
+          "votes": 2
         }
       ]
     }
