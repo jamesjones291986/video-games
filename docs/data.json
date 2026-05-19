@@ -8,11 +8,11 @@
           "Outside Scoring": "S",
           "Perimeter Defense": "S",
           "Ball Handling": "S",
-          "Passing/Vision": "S"
+          "Passing/Vision": "A"
         },
         "overall": "S",
-        "score": 6.0,
-        "vote_count": 1
+        "score": 5.58,
+        "vote_count": 2
       },
       "Backend": {
         "grades": {
@@ -147,8 +147,8 @@
       {
         "player": "skip2mysmoov",
         "overall": "S",
-        "score": 6.0,
-        "vote_count": 1
+        "score": 5.58,
+        "vote_count": 2
       },
       {
         "player": "Blackion",
@@ -225,9 +225,9 @@
       "PG": [
         {
           "week": "2026-W21",
-          "score": 6.0,
+          "score": 5.58,
           "grade": "S",
-          "votes": 1
+          "votes": 2
         }
       ],
       "Backend": [
