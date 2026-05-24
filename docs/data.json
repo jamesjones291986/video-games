@@ -28,14 +28,14 @@
     "LegendRuthless": {
       "Big": {
         "grades": {
-          "Basketball IQ": "A",
-          "Rebounding": "A",
-          "Defense": "B",
+          "Basketball IQ": "S",
+          "Rebounding": "S",
+          "Defense": "A",
           "Passing/Vision": "A"
         },
         "overall": "A",
-        "score": 5.04,
-        "vote_count": 3
+        "score": 5.22,
+        "vote_count": 4
       }
     },
     "dontguardmepls": {
@@ -175,8 +175,8 @@
       {
         "player": "LegendRuthless",
         "overall": "A",
-        "score": 5.04,
-        "vote_count": 3
+        "score": 5.22,
+        "vote_count": 4
       },
       {
         "player": "Super Nintylo",
@@ -243,9 +243,9 @@
       "Big": [
         {
           "week": "2026-W21",
-          "score": 5.04,
+          "score": 5.22,
           "grade": "A",
-          "votes": 3
+          "votes": 4
         }
       ]
     },
