@@ -133,12 +133,12 @@
       "3&D": {
         "grades": {
           "Basketball IQ": "A",
-          "Defense": "B",
+          "Defense": "A",
           "Outside Scoring": "S"
         },
         "overall": "A",
-        "score": 5.09,
-        "vote_count": 4
+        "score": 5.28,
+        "vote_count": 5
       }
     }
   },
@@ -195,8 +195,8 @@
       {
         "player": "Parlay",
         "overall": "A",
-        "score": 5.09,
-        "vote_count": 4
+        "score": 5.28,
+        "vote_count": 5
       },
       {
         "player": "Emmons Clutched",
@@ -323,9 +323,9 @@
       "3&D": [
         {
           "week": "2026-W21",
-          "score": 5.09,
+          "score": 5.28,
           "grade": "A",
-          "votes": 4
+          "votes": 5
         }
       ]
     }
