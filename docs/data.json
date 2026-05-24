@@ -41,28 +41,28 @@
     "dontguardmepls": {
       "PG": {
         "grades": {
-          "Basketball IQ": "C",
-          "Inside Scoring": "C",
-          "Outside Scoring": "A",
-          "Perimeter Defense": "C",
+          "Basketball IQ": "A",
+          "Inside Scoring": "A",
+          "Outside Scoring": "S",
+          "Perimeter Defense": "A",
           "Ball Handling": "S",
-          "Passing/Vision": "C"
+          "Passing/Vision": "A"
         },
-        "overall": "B",
-        "score": 3.69,
-        "vote_count": 1
+        "overall": "A",
+        "score": 4.85,
+        "vote_count": 2
       }
     },
     "JonesyKC": {
       "3&D": {
         "grades": {
-          "Basketball IQ": "A",
+          "Basketball IQ": "S",
           "Defense": "A",
           "Outside Scoring": "S"
         },
-        "overall": "A",
-        "score": 5.38,
-        "vote_count": 1
+        "overall": "S",
+        "score": 5.56,
+        "vote_count": 2
       }
     },
     "Emmons Clutched": {
@@ -94,12 +94,12 @@
       "Lock": {
         "grades": {
           "Basketball IQ": "A",
-          "Defense": "A",
-          "Outside Scoring": "B"
+          "Defense": "S",
+          "Outside Scoring": "A"
         },
         "overall": "A",
-        "score": 4.75,
-        "vote_count": 1
+        "score": 5.06,
+        "vote_count": 2
       }
     },
     "KrippsOHoulihan": {
@@ -134,11 +134,11 @@
         "grades": {
           "Basketball IQ": "A",
           "Defense": "B",
-          "Outside Scoring": "A"
+          "Outside Scoring": "S"
         },
         "overall": "A",
-        "score": 4.62,
-        "vote_count": 2
+        "score": 5.09,
+        "vote_count": 4
       }
     }
   },
@@ -151,16 +151,16 @@
         "vote_count": 2
       },
       {
+        "player": "dontguardmepls",
+        "overall": "A",
+        "score": 4.85,
+        "vote_count": 2
+      },
+      {
         "player": "Blackion",
         "overall": "B",
         "score": 4.42,
         "vote_count": 2
-      },
-      {
-        "player": "dontguardmepls",
-        "overall": "B",
-        "score": 3.69,
-        "vote_count": 1
       }
     ],
     "Backend": [
@@ -188,15 +188,15 @@
     "3&D": [
       {
         "player": "JonesyKC",
-        "overall": "A",
-        "score": 5.38,
-        "vote_count": 1
+        "overall": "S",
+        "score": 5.56,
+        "vote_count": 2
       },
       {
         "player": "Parlay",
         "overall": "A",
-        "score": 4.62,
-        "vote_count": 2
+        "score": 5.09,
+        "vote_count": 4
       },
       {
         "player": "Emmons Clutched",
@@ -215,8 +215,8 @@
       {
         "player": "GCade",
         "overall": "A",
-        "score": 4.75,
-        "vote_count": 1
+        "score": 5.06,
+        "vote_count": 2
       }
     ]
   },
@@ -253,9 +253,9 @@
       "PG": [
         {
           "week": "2026-W21",
-          "score": 3.69,
-          "grade": "B",
-          "votes": 1
+          "score": 4.85,
+          "grade": "A",
+          "votes": 2
         }
       ]
     },
@@ -263,9 +263,9 @@
       "3&D": [
         {
           "week": "2026-W21",
-          "score": 5.38,
-          "grade": "A",
-          "votes": 1
+          "score": 5.56,
+          "grade": "S",
+          "votes": 2
         }
       ]
     },
@@ -293,9 +293,9 @@
       "Lock": [
         {
           "week": "2026-W21",
-          "score": 4.75,
+          "score": 5.06,
           "grade": "A",
-          "votes": 1
+          "votes": 2
         }
       ]
     },
@@ -323,9 +323,9 @@
       "3&D": [
         {
           "week": "2026-W21",
-          "score": 4.62,
+          "score": 5.09,
           "grade": "A",
-          "votes": 2
+          "votes": 4
         }
       ]
     }
