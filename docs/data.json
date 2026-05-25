@@ -42,15 +42,15 @@
       "PG": {
         "grades": {
           "Basketball IQ": "A",
-          "Inside Scoring": "A",
+          "Inside Scoring": "B",
           "Outside Scoring": "S",
-          "Perimeter Defense": "A",
+          "Perimeter Defense": "B",
           "Ball Handling": "S",
           "Passing/Vision": "A"
         },
         "overall": "A",
-        "score": 4.85,
-        "vote_count": 2
+        "score": 4.77,
+        "vote_count": 3
       }
     },
     "JonesyKC": {
@@ -153,8 +153,8 @@
       {
         "player": "dontguardmepls",
         "overall": "A",
-        "score": 4.85,
-        "vote_count": 2
+        "score": 4.77,
+        "vote_count": 3
       },
       {
         "player": "Blackion",
@@ -253,9 +253,9 @@
       "PG": [
         {
           "week": "2026-W21",
-          "score": 4.85,
+          "score": 4.77,
           "grade": "A",
-          "votes": 2
+          "votes": 3
         }
       ]
     },
